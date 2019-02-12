@@ -8,17 +8,24 @@ super + Return
 super + alt + Return
 	st -e tmux
 super + shift + Return
-	st -e ranger
+	st -e fff
 super + ctrl + Return
 	st -i
 	#drawxst
 
 # program launcher
 super + d
-	rofi -show run -lines 3
+	rofi -show run -lines 3 -theme ~/.config/rofi/colors-rofi-light.rasi
 
 super + a
-	notify-send "$(todo)"
+	notify-send "Afazeres:  " "$(todo)"
+
+super + r
+	~/.myscripts/record
+
+super + shift + r
+	pkill ffmpeg && notify-send "ffmpeg" "Done!"
+		
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -57,12 +64,18 @@ super + shift + d
 #	bspc quit
 
 super + alt + Escape
-	pkill -x panel ; bspc quit
+	pkill -x panel3 ; bspc quit
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
+super + shift + m
+	~/lemon/xshow &
+
+super + ctrl + m
+	~/lemon/xhidden &
+
 super + m
 	bspc desktop -l next
 
@@ -109,7 +122,7 @@ super + bracket{left,right}
 # focus the last node/desktop
 super + Tab
 #	bspc {node,desktop} -f last
-	rofi -show window
+	rofi -show window -lines 9 -theme ~/.config/rofi/colors-rofi-light.rasi
 
 alt + Tab
 	bspc node -f {next}.local

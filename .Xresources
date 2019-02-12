@@ -78,7 +78,8 @@ st.opacity: 255
 
 ! Defaults taken from base16-twilight colorscheme.
 st.foreground:   #a7a7a7
-st.background:   #0A121A
+st.background:   #0B131B 
+!#111C22
 !#1e1e1e
 st.color0:       #1e1e1e
 st.color1:       #cf6a4c
