@@ -24,6 +24,9 @@ super + r
 	~/.myscripts/record
 
 super + shift + r
+	~/.myscripts/audrecord
+
+super + ctrl + r
 	pkill ffmpeg && notify-send "ffmpeg" "Done!"
 		
 
@@ -32,8 +35,17 @@ super + Escape
 	pkill -USR1 -x sxhkd
 
 ## Volume control
+XF86AudioPlay
+	mpvc -p
+
+XF86AudioNext
+	media -n
+
+XF86AudioPrev
+	media -p
+
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-    amixer {set Master 1%+, set Master 1%-, set Master toggle}
+	amixer {set Master 1%+, set Master 1%-, set Master toggle}
 
 ## Screenshot
 #{Print, alt + Print}
