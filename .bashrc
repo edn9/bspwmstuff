@@ -12,9 +12,14 @@ set -o vi
 umask 0077 #toda vez que o terminal cria um arquivo o arquivo so vai ter permissao de leitura escrita so pro usuario
 
 bind "\C-l":clear-screen
+alias cdp=' cd ~/MEGA/MEGAsync/programação/'
+alias killm='mpvc -k'
 alias ls='ls --color=auto'
 alias cdd='cd ~/Downloads'
 alias f='fff'
+alias cdm='cd ~/MEGA/MEGAsync/'
+alias cdg='cd ~/MEGA/MEGAsync/docs/gnucash/'
+alias cdn='cd ~/MEGA/MEGAsync/docs/updates/'
 alias remove='sudo xbps-remove -R'
 alias search='xbps-query -Rs'
 alias install='sudo xbps-install -S'
@@ -91,6 +96,14 @@ ram() {
   fi
 }
 
+hex_to_rgb() {
+    # Usage: hex_to_rgb "#FFFFFF"
+    #        hex_to_rgb "000000"
+    : "${1/\#}"
+    ((r=16#${_:0:2},g=16#${_:2:2},b=16#${_:4:2}))
+    printf '%s\n' "$r $g $b"
+}
+
 wget-extension() {
   if [ $# -lt 2 ]; then
     echo -e "Download all files with specific extension on a webpage"
@@ -120,3 +133,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_
 
 export PANEL_FIFO="/tmp/panel-fifo"
 export PATH="$PATH:$HOME/npm/bin"
+#export TERM="st-256color"
+export TERM="screen"
+#export TERM="xterm-256color"
