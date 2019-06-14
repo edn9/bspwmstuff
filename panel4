@@ -41,8 +41,11 @@ mkfifo "$PANEL_FIFO"
 
 ram() {
 	while true; do
-		ra=$(free -m | head -2 | tail -1 | awk '{print $3}')
-		printf "%s\\n" "@mem $ra/3.8G"
+		#a=$(free -m | head -2 | tail -1 | awk '{print $3}')
+		a=$(free -m | awk 'NR==2' | awk '{print $3}')
+		b=$(free -m | awk 'NR==2' | awk '{print $5}')
+		c=$(echo $a + $b | bc)
+		printf "%s\\n" "@mem $c/3.8G"
 		sleep 1
 	done
 }
