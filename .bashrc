@@ -3,6 +3,11 @@
 #
 
 # If not running interactively, don't do anything
+
+#if [[ -z $DISPLAY ]] && [[ $(tty) = "/dev/tty1" ]]; then
+#        exec startx
+#fi
+
 [[ $- != *i* ]] && return
 
 set -o vi
@@ -11,7 +16,11 @@ set -o vi
 
 umask 0077 #toda vez que o terminal cria um arquivo o arquivo so vai ter permissao de leitura escrita so pro usuario
 
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+export HISTCONTROL=ignoreboth
+
 bind "\C-l":clear-screen
+alias py3s="ip addr | grep inet | tail -2 | head -1 && python3 -m http.server"
 alias cdp=' cd ~/MEGA/MEGAsync/programação/'
 alias killm='mpvc -k'
 alias ls='ls --color=auto'
@@ -19,6 +28,7 @@ alias cdd='cd ~/Downloads'
 alias f='fff'
 alias cdm='cd ~/MEGA/MEGAsync/'
 alias cdg='cd ~/MEGA/MEGAsync/docs/gnucash/'
+alias cdd='cd ~/MEGA/MEGAsync/docs'
 alias cdn='cd ~/MEGA/MEGAsync/docs/updates/'
 alias remove='sudo xbps-remove -R'
 alias search='xbps-query -Rs'
@@ -29,19 +39,12 @@ alias update='sudo xbps-install -Suvy'
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias shutdown='sudo shutdown -h now'
+alias mount='sudo mount'
+alias umount='sudo umount'
 alias zzz='sudo zzz'
 alias instsrc='sudo xbps-install --repository=hostdir/binpkgs'
 alias ".."='cd ..'
-alias "xcp"="xclip -selection clipboard"
-#alias rsn='sudo pacman -Rsn $(pacman -Qdtq)'
-#alias search='pacman -Ss '
-#alias update='sudo pacman -Syyuu'
-#alias install='sudo pacman -S '
-#alias remove='sudo pacman -R '
-#alias shutdown='shutdown -h now'
-#alias yinstall='yay -S '
-#alias ysearch='yay -Ss '
-#alias yupdate='yay -Syyuu'
+alias "xcp"="pwd | xclip -selection clipboard"
 alias ytb='mpv --ytdl-format=22 $1'
 alias ytm='mpv --ytdl-format=18 $1'
 #alias xcp='xclip -selection clipboard'
@@ -69,11 +72,6 @@ if [[ -f $1 ]]; then
 else
 	echo "'$1' is not a valid file"
 fi
-}
-
-yopus() {
-        youtube-dl "$@" --add-metadata --metadata-from-title "%(artist)s - %(title)s" \
-        --extract-audio --prefer-ffmpeg --youtube-skip-dash-manifest --ignore-errors
 }
 
 ram() {
@@ -132,7 +130,11 @@ PS1='\[\033[01;37m\]\W\[\033[01;32m\] - \[\033[00m\]'
 PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/butchr/.myscripts
 
 export PANEL_FIFO="/tmp/panel-fifo"
-export PATH="$PATH:$HOME/npm/bin"
+#export PATH="$PATH:$HOME/npm/bin"
 #export TERM="st-256color"
 export TERM="screen"
 #export TERM="xterm-256color"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
