@@ -4,18 +4,27 @@
 
 # terminal emulator
 super + Return
-	st
+	xst
 super + alt + Return
-	st -e tmux
+	xst -e tmux
 super + shift + Return
-	st -e fff
+	xst -e fff
 super + ctrl + Return
-	st -i
+	xst -i
 	#drawxst
 
 # program launcher
 super + d
-	rofi -show run -lines 3 -theme ~/.config/rofi/colors-rofi-light.rasi
+	dmenu_run -l 10 -nb "#D8E1E5" -nf "#0B131B" -sb "#728D9E" -sf "#0B131B"
+
+super + shift + t
+	./Downloads/Telegram/Telegram &
+
+super + shift + f
+	firefox
+
+super + shift + k
+	krita
 
 super + a
 	notify-send "Afazeres:  " "$(todo)"
@@ -23,12 +32,11 @@ super + a
 super + r
 	~/.myscripts/record
 
-super + shift + r
-	~/.myscripts/audrecord
-
 super + ctrl + r
 	pkill ffmpeg && notify-send "ffmpeg" "Done!"
 		
+super + i
+	a=$(mpvc | head -1) && notify-send "Tocando agora:" "$a"
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -39,13 +47,13 @@ XF86AudioPlay
 	mpvc -p
 
 XF86AudioNext
-	media -n
+	mpvc --format track +1
 
 XF86AudioPrev
-	media -p
+	mpvc --format track -1
 
 XF86Audio{RaiseVolume,LowerVolume,Mute}
-	amixer {set Master 1%+, set Master 1%-, set Master toggle}
+	amixer {set Master 1%+, set Master 1%-, set Master toggle && amixer set Headphone unmute}
 
 ## Screenshot
 #{Print, alt + Print}
@@ -61,7 +69,8 @@ Print
 
 #lock
 super + 0
-	GLITCHICON=~/git/glitchlock/stop.png ~/git/glitchlock/glitchlock
+	slock
+	#GLITCHICON=~/git/glitchlock/stop.png ~/git/glitchlock/glitchlock
 
 ## Date
 super + shift + d
@@ -76,16 +85,16 @@ super + shift + d
 #	bspc quit
 
 super + alt + Escape
-	pkill -x panel3 ; bspc quit
+	pkill -x panel4 ; bspc quit
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
-super + shift + m
+alt + shift + m
 	~/lemon/xshow &
 
-super + ctrl + m
+alt + ctrl + m
 	~/lemon/xhidden &
 
 super + m
@@ -133,8 +142,8 @@ super + bracket{left,right}
 
 # focus the last node/desktop
 super + Tab
-#	bspc {node,desktop} -f last
-	rofi -show window -lines 9 -theme ~/.config/rofi/colors-rofi-light.rasi
+	bspc {node,desktop} -f last
+	#rofi -show window -lines 9 -theme ~/.config/rofi/colors-rofi-light.rasi
 
 alt + Tab
 	bspc node -f {next}.local
