@@ -1,6 +1,4 @@
-#
 # wm independent hotkeys
-#
 
 # terminal emulator
 super + Return
@@ -11,7 +9,6 @@ super + shift + Return
 	xst -e fff
 super + ctrl + Return
 	xst -i
-	#drawxst
 
 # program launcher
 super + d
@@ -23,26 +20,26 @@ super + shift + t
 super + shift + f
 	firefox
 
+super + shift + c
+	chromium
+
 super + shift + k
 	krita
-
-super + a
-	notify-send "Afazeres:  " "$(todo)"
 
 super + r
 	~/.myscripts/record
 
 super + ctrl + r
 	pkill ffmpeg && notify-send "ffmpeg" "Done!"
-		
+
 super + i
 	a=$(mpvc | head -1) && notify-send "Tocando agora:" "$a"
 
-# make sxhkd reload its configuration files:
+# make sxhkd reload its configuration files
 super + Escape
 	pkill -USR1 -x sxhkd
 
-## Volume control
+## Volume control & music
 XF86AudioPlay
 	mpvc -p
 
@@ -56,13 +53,14 @@ XF86Audio{RaiseVolume,LowerVolume,Mute}
 	amixer {set Master 1%+, set Master 1%-, set Master toggle && amixer set Headphone unmute}
 
 ## Screenshot
+Print
+	flameshot gui
+
 #{Print, alt + Print}
 #	{scrot, scrot -s} '%d-%m-%Y-%T.png' -e 'xclip -selection clipboard -t "image/png" < $f &&\
 #	mv $f ~/imagens/scrot/' && notify-send 'Scrot' 'Screenshot salva em \n~/imagens/scrot/'
 
-Print
-	flameshot gui
-	#scrot -z -e 'xclip -selection clipboard -t "image/png" < $f && rm $f' && notify-send "Screenshot F"
+#	scrot -z -e 'xclip -selection clipboard -t "image/png" < $f && rm $f' && notify-send "Screenshot F"
 #alt + Print
 #	scrot -z -s -e 'xclip -selection clipboard -t "image/png" < $f && rm $f' && notify-send "Screenshot S"
 
@@ -70,13 +68,11 @@ Print
 #lock
 super + 0
 	slock
-	#GLITCHICON=~/git/glitchlock/stop.png ~/git/glitchlock/glitchlock
 
 ## Date
 super + shift + d
 	notify-send "Data" "$(date '+%A, %d de %B - %H:%M')"
 
-#
 # bspwm hotkeys
 #
 
@@ -86,6 +82,7 @@ super + shift + d
 
 super + alt + Escape
 	pkill -x panel4 ; bspc quit
+
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}
@@ -120,9 +117,7 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
 # focus/swap
-#
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}

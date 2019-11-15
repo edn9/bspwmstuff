@@ -35,3 +35,4 @@ hsetroot -fill ~/image/walls/ronaldo-de-oliveira-683920-unsplash.jpg
 ~/lemon/panel4 &
 sleep 3 && stalonetray &
 notify-send -i ~/.config/dunst/sun.png "Bspwmrc Loaded" "Welcome home, <b>$USER</b>!"
+parcellite -n &
